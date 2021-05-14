@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> RPS-1 </title>
+    <link rel="stylesheet" href="stylerps.css">
+</head>
+
+<body>
+    <header> Pick one of the below! </header>
+    <br>
+    <button id="rockbtn" type="button" value="rock"> Rock </button>
+    <button id="paperbtn" type="button" value='paper'> Paper </button>
+    <button id="scissorsbtn" type="button" value="scissors"> Scissors </button>
+
+    <div> Result:
+        <div id="result"> </div>
+        <div id="choice"> </div>
+        <div id="score"> </div>
+    </div>
+    <script>
+        function computerplay() { // Creating a function to generate a random choice for the computer out of rock, paper and scissors by using math.random to generate between 1,2 and 3. Assign each number our 3 values 1=rock, 2=paper, 3=scissor. 
+            let compchoice = Math.floor(Math.random() * 3) + 1;
+            if (compchoice == 1) {
+                compchoice = "rock";
+            }
+            else if (compchoice == 2) {
+                compchoice = "paper";
+            }
+            else {
+                compchoice = "scissors";
+            }
+            return compchoice;
+        }
+        let btnrock = document.querySelector("#rockbtn")
+        btnrock.addEventListener('click', rock);
+        let btnpaper = document.querySelector('#paperbtn')
+        btnpaper.addEventListener('click', paper);
+        let btnscissors = document.querySelector('#scissorsbtn')
+        btnscissors.addEventListener('click', scissors);
+        let res;
+        let pscore = 0;
+        let cscore = 0;
+        function playRound(pselect, cselect) {
+            //console.log(pselect);
+            if (pselect == "rock") {
+                if (cselect == "rock") {
+                    res = "its a tie"
+                    return res;
+                }
+                else if (cselect == "paper") {
+                    res = "you lose";
+                    return res;
+                }
+                else {
+                    res = "you win"
+                    return res;
+                }
+            }
+            else if (pselect == "paper") {
+                if (cselect == "rock") {
+                    res = "you win"
+                    return res;
+                }
+                else if (cselect == "paper") {
+                    res = "its a tie"
+                    return res;
+                }
+                else {
+                    res = "you lose";
+                    return res;
+                }
+            }
+            else if (pselect == "scissors") {
+                if (cselect == "rock") {
+                    res = "you lose";
+                    return res;
+                }
+                else if (cselect == "paper") {
+                    res = "you win"
+                    return res;
+                }
+                else {
+                    res = "its a tie"
+                    return res;
+                }
+            }
+        }
+        let play;
+        function rock() {
+            pselect = "rock";
+            let cselect = computerplay();
+            play = playRound(pselect, cselect);
+            // console.log(play);
+            score(play);
+            document.getElementById("result").textContent = play;
+            document.getElementById("choice").textContent = `You chose ${pselect} and the computer chose ${cselect}`;
+        }
+        function paper() {
+            pselect = "paper";
+            let cselect = computerplay();
+            play = playRound(pselect, cselect);
+            score(play);
+            document.getElementById("result").textContent = play;
+            document.getElementById("choice").textContent = `You chose ${pselect} and the computer chose ${cselect}`;
+        }
+        function scissors() {
+            pselect = "scissors";
+            let cselect = computerplay();
+            play = playRound(pselect, cselect);
+            score(play);
+            document.getElementById("result").textContent = play;
+            document.getElementById("choice").textContent = `You chose ${pselect} and the computer chose ${cselect}`;
+        }
+        function score(play) {
+            if (play === "you lose") {
+                cscore += 1;
+                document.getElementById("score").textContent = `Computer: ${cscore} You: ${pscore}`;
+            }
+            else if (play === "you win") {
+                pscore += 1;
+                document.getElementById("score").textContent = `Computer: ${cscore} You: ${pscore}`;
+            }
+            endgame();
+        }
+        function endgame() {
+            if (pscore === 5) {
+                alert('You win the game!');
+                location.reload();
+            }
+            else if (cscore === 5) {
+                alert('You lost! Better luck next time');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
